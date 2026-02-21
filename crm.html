@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="config/config.js"></script>
+    <script src="config/theme.js"></script>
+    <link rel="stylesheet" href="assets/css/base.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <title>Gestão de Clientes (CRM) | Admin</title>
+
+    <link rel="stylesheet" href="assets/css/app-mobile.css">
+
+    <style>
+        :root { --sidebar-width: 260px; }
+        body { background-color: #f4f7f6; display: flex; min-height: 100vh; }
+
+        /* Reaproveitando Sidebar */
+        .admin-sidebar { width: var(--sidebar-width); background-color: var(--color-primary); color: white; padding: 30px 20px; position: fixed; height: 100vh; }
+        .admin-nav { list-style: none; margin-top: 40px; }
+        .admin-nav a { color: rgba(255,255,255,0.8); text-decoration: none; display: flex; align-items: center; gap: 12px; padding: 12px 15px; border-radius: var(--radius-btn); margin-bottom: 5px; }
+        .admin-nav a.active { background: var(--color-accent); color: white; }
+
+        .admin-main { margin-left: var(--sidebar-width); width: calc(100% - var(--sidebar-width)); padding: 40px; }
+
+        /* Filtros e Busca */
+        .crm-header-actions {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+            gap: 20px;
+        }
+
+        .search-box {
+            flex-grow: 1;
+            position: relative;
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 12px 15px 12px 40px;
+            border-radius: var(--radius-input);
+            border: 1px solid var(--color-border);
+            font-family: var(--font-sans);
+        }
+
+        .search-box i {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #aaa;
+        }
+
+        /* Tabela CRM */
+        .crm-container {
+            background: white;
+            border-radius: var(--radius-card);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.03);
+            overflow-x: auto;
+            overflow-y: hidden;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .crm-table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 860px;
+        }
+
+        .crm-table th {
+            background: #f9f9f9;
+            padding: 18px;
+            text-align: left;
+            color: var(--color-primary);
+            font-size: 0.85rem;
+            text-transform: uppercase;
+        }
+
+        .crm-table td {
+            padding: 18px;
+            border-bottom: 1px solid #eee;
+            font-size: 0.9rem;
+        }
+
+        .client-avatar {
+            width: 35px;
+            height: 35px;
+            background: var(--color-marquee);
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 10px;
+            font-weight: bold;
+            color: var(--color-primary);
+            font-size: 0.8rem;
+        }
+
+        .badge-club {
+            background: #fff4e5;
+            color: #d35400;
+            padding: 3px 8px;
+            border-radius: 10px;
+            font-size: 0.7rem;
+            font-weight: 600;
+        }
+
+        .action-icons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .btn-icon {
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 4px;
+            border: 1px solid #eee;
+            color: #666;
+            text-decoration: none;
+            transition: all 0.2s;
+        }
+
+        .btn-icon:hover {
+            background: var(--color-background);
+            color: var(--color-accent);
+            border-color: var(--color-accent);
+        }
+    
+        @media (max-width: 768px) {
+            .crm-header-actions { flex-direction: column; align-items: stretch; }
+            .crm-header-actions .search-box { width: 100%; }
+            .crm-header-actions button { width: 100%; }
+        }
+
+    </style>
+</head>
+<body class="admin-app">
+
+    <div id="admin-sidebar-placeholder"></div>
+
+    <main class="admin-main">
+        <header style="margin-bottom: 30px;">
+            <h1 style="color: var(--color-primary);">Gestão de Clientes</h1>
+            <p>Histórico, Anamneses e Planos.</p>
+        </header>
+
+        <section class="crm-header-actions">
+            <div class="search-box">
+                <i class="fas fa-search"></i>
+                <input type="text" placeholder="Buscar por nome, CPF ou telefone...">
+            </div>
+            <button class="btn" style="background: var(--color-primary); color: white; border: none; padding: 12px 25px; border-radius: 5px;">+ NOVO CLIENTE</button>
+        </section>
+
+        <div class="crm-container">
+            <table class="crm-table">
+                <thead>
+                    <tr>
+                        <th>Cliente</th>
+                        <th>Contato</th>
+                        <th>Status Club</th>
+                        <th>Última Visita</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+                <tbody id="crm-tbody"></tbody>
+            </table>
+        </div>
+    </main>
+
+    <script src="assets/js/auth.js" defer></script>
+    <script src="assets/js/functions.js" defer></script>
+    <script src="assets/js/main.js" defer></script>
+    <script src="assets/js/pages/crm.js" defer></script>
+    <script src="assets/js/admin-shell.js"></script>
+</body>
+</html>
